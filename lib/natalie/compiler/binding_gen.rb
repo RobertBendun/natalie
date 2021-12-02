@@ -577,6 +577,7 @@ gen.binding('IO', 'puts', 'IoValue', 'puts', argc: :any, pass_env: true, pass_bl
 gen.binding('IO', 'read', 'IoValue', 'read', argc: 0..1, pass_env: true, pass_block: false, return_type: :Value)
 gen.binding('IO', 'seek', 'IoValue', 'seek', argc: 1..2, pass_env: true, pass_block: false, return_type: :Value)
 gen.binding('IO', 'write', 'IoValue', 'write', argc: 1.., pass_env: true, pass_block: false, return_type: :Value)
+gen.binding('IO', 'readlines', 'IoValue', 'readlines', argc: 0, pass_env: true, pass_block: false, return_type: :Value)
 
 gen.binding('Kernel', 'Array', 'KernelModule', 'Array', argc: 1, pass_env: true, pass_block: false, return_type: :Value)
 gen.binding('Kernel', 'at_exit', 'KernelModule', 'at_exit', argc: 0, pass_env: true, pass_block: true, return_type: :Value)

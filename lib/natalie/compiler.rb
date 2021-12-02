@@ -332,7 +332,7 @@ module Natalie
       code = File.read(path)
       file_ast = Natalie::Parser.new(code, path).ast
       path_h = path.hash.to_s # the only point of this is to obscure the paths of the host system where natalie is run
-      s(:block, s(:if, 
+      s(:block, s(:if,
         if require_once
           s(:call,
             s(:call,
@@ -342,9 +342,9 @@ module Natalie
             :!)
         else
           s(:true)
-        end, 
+        end,
         s(:block,
-          expand_macros(file_ast, path), 
+          expand_macros(file_ast, path),
           if require_once
             s(:attrasgn, s(:gvar, :$NAT_LOADED_PATHS), :[]=, s(:str, path_h), s(:true))
           else
