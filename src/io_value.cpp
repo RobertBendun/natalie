@@ -4,9 +4,6 @@
 #include <math.h>
 #include <unistd.h>
 
-#include <fstream>
-#include <string>
-
 namespace Natalie {
 
 ValuePtr IoValue::initialize(Env *env, ValuePtr file_number) {
@@ -161,16 +158,17 @@ ValuePtr IoValue::seek(Env *env, ValuePtr amount_value, ValuePtr whence_value) {
 
 ValuePtr IoValue::readlines(Env *env)
 {
-	std::string filename = "/proc/self/fd/" + std::to_string(m_fileno);
-	std::ifstream file(filename.c_str());
-	if (!file) {
-		return NilValue::the();
+	ArrayValue *array = new ArrayValue();
+
+	char buf[2048]; // following KernelModule::gets
+
+	FILE *fd = fdopen(m_fileno, "r");
+	if (fd == NULL) {
+		return {};
 	}
 
-	ArrayValue *array = new ArrayValue();
-	std::string buffer;
-	while (std::getline(file, buffer)) {
-		array->push(*new StringValue{ buffer.data(), buffer.size() });
+	while (fgets(buf, 2048, fd)) {
+		array->push(new StringValue{ buf });
 	}
 	return array;
 }
