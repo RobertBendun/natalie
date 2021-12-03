@@ -69,7 +69,7 @@ namespace ArrayPacker {
                         auto item = m_source->at(m_index);
                         if (m_source->is_string()) {
                             integer = item->as_integer()->to_nat_int_t();
-                        } else if (item->is_nil()) { //TODO check if it is already implemented by the else branch at the end
+                        } else if (item->is_nil()) { // TODO check if it is already implemented by the else branch at the end
                             env->raise("TypeError", "no implicit conversion of nil into Integer");
                         } else if (item->respond_to(env, SymbolValue::intern("to_int"))) {
                             auto num = item->send(env, SymbolValue::intern("to_int"));

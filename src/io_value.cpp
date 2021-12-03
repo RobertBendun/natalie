@@ -156,31 +156,31 @@ ValuePtr IoValue::seek(Env *env, ValuePtr amount_value, ValuePtr whence_value) {
     }
 }
 
-ValuePtr IoValue::readlines(Env *env)
-{
-	if (m_closed)
-		env->raise("IOError", "closed stream");
+ValuePtr IoValue::readlines(Env *env) {
+    if (m_closed)
+        env->raise("IOError", "closed stream");
 
-	ArrayValue *array = new ArrayValue();
+    ArrayValue *array = new ArrayValue();
 
-	char buf[2048]; // following KernelModule::gets
+    char buf[2048]; // following KernelModule::gets
 
-	FILE *fd = fdopen(m_fileno, "r");
-	if (fd == NULL) {
-			ValuePtr error_number = ValuePtr::integer(errno);
-			auto SystemCallError = GlobalEnv::the()
-				->Object()
-				->const_find(env, SymbolValue::intern("SystemCallError"));
-			ExceptionValue *error = SystemCallError.send(env,
-					SymbolValue::intern("exception"), { error_number })->as_exception();
-			env->raise_exception(error);
-	}
+    FILE *fd = fdopen(m_fileno, "r");
+    if (fd == NULL) {
+        ValuePtr error_number = ValuePtr::integer(errno);
+        auto SystemCallError = GlobalEnv::the()
+                                   ->Object()
+                                   ->const_find(env, SymbolValue::intern("SystemCallError"));
+        ExceptionValue *error = SystemCallError.send(env,
+                                                   SymbolValue::intern("exception"), { error_number })
+                                    ->as_exception();
+        env->raise_exception(error);
+    }
 
-	while (fgets(buf, 2048, fd)) {
-		array->push(new StringValue{ buf });
-	}
+    while (fgets(buf, 2048, fd)) {
+        array->push(new StringValue { buf });
+    }
 
-	return array;
+    return array;
 }
 
 }

@@ -320,7 +320,7 @@ ValuePtr ArrayValue::eq(Env *env, ValuePtr other) {
             return FalseValue::the();
 
         if (is_recursive)
-            //since == is an & of all the == of each value, this will just leave the expression uneffected
+            // since == is an & of all the == of each value, this will just leave the expression uneffected
             return TrueValue::the();
 
         SymbolValue *object_id = SymbolValue::intern("object_id");
@@ -365,7 +365,7 @@ ValuePtr ArrayValue::eql(Env *env, ValuePtr other) {
             return FalseValue::the();
 
         if (is_recursive)
-            //since eql is an & of all the eql of each value, this will just leave the expression uneffected
+            // since eql is an & of all the eql of each value, this will just leave the expression uneffected
             return TrueValue::the();
 
         for (size_t i = 0; i < size(); ++i) {

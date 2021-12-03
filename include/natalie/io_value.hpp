@@ -50,7 +50,7 @@ public:
     ValuePtr seek(Env *, ValuePtr, ValuePtr);
     bool is_closed() { return m_closed; }
 
-		ValuePtr readlines(Env*);
+    ValuePtr readlines(Env *);
 
 private:
     int m_fileno { -1 };

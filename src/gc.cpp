@@ -131,7 +131,7 @@ Cell *HeapBlock::find_next_free_cell() {
     assert(m_free_list || m_free_count == 0);
     auto cell = reinterpret_cast<Cell *>(node);
     m_used_map[node->index] = true;
-    //printf("Cell %p allocated from block %p (size %zu) at index %zu\n", cell, this, m_cell_size, i);
+    // printf("Cell %p allocated from block %p (size %zu) at index %zu\n", cell, this, m_cell_size, i);
     new (cell) Cell();
     return cell;
 }
